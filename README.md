@@ -215,7 +215,7 @@ The *index.php* file will look like this:
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('yourip:8080')
 
         socket.on('connect', function() {
             toastr.success('Nice connection!')
@@ -295,8 +295,8 @@ var fs = require('fs');
 var ExpressTrade = require('expresstrade');
 
 var ET = new ExpressTrade({
-    apikey: 'jasd67ahjdgsd6asd565d6f5dfd5f6df',         // EXAMPLE of apikey
-    twofactorsecret: 'HGPSSHFOHS6AG2U7',                // EXAMPLE of twofactorsecret
+    apikey: '92nsns01hw0sn101bsiidas',         // EXAMPLE of apikey
+    twofactorsecret: '29SN2ISN2JSN2SF',                // EXAMPLE of twofactorsecret
     pollInterval: 5000
   })
 
@@ -380,7 +380,7 @@ And the `scripts` section will look like this:
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('yourip:8080')
 
         socket.on('connect', function() {
             toastr.success('Nice connection!')
@@ -526,7 +526,7 @@ The `scripts` section will look like this:
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('yourip:8080')
 
         socket.on('connect', function() {
             toastr.success('Nice connection!')
@@ -755,7 +755,7 @@ function botInventory(callback) {
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('yourip:8080')
 
         socket.on('connect', function() {
             toastr.success('Nice connection!')
@@ -940,7 +940,7 @@ The new code with new `index.php` file with deposit functions and button:
     var socket = null;
 
     if(socket == null) {
-        socket = io('207.154.220.43:8080');
+        socket = io('yourip:8080');
 
         socket.on('connect', function() {
             toastr.success('Connected to server!');
