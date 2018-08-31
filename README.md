@@ -11,11 +11,15 @@ Create a VPS with OS: Ubuntu 14.04.5 x64.
 
 The password will be sent through your e-mail/gmail registered to your DigitalOcean.
 
-## 2. We open the server in PUTTY
+## 2. Open PuTTy
 
 Download PuTTy from the link: (https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
 
-Open PuTTy server and write following commands:
+Open PuTTy server. Login with your IP Address and with the password from your e-mail/gmail.
+
+Then you will be input to write your old password (from e-mail/gmail) and then asked to write your new password.
+
+After the new password has been created, write these following commands:
 
 ```shell
 apt-get update
@@ -24,7 +28,6 @@ apt-get update
 ```shell
 apt-get install apache2 mysql-server phpmyadmin php5
 ```
-Then you will be input to write your old password (from e-mail/gmail) and then asked to write your new password.
 
 ## 3. Open FileZilla (File Server Browser)
 
@@ -102,7 +105,7 @@ Return to FileZilla, go to folder `/var/www/html` and inside the folder make a f
 </body>
 </html>
 ```
-Now we will add the "scripts"
+Add now the `script` tags:
 
 ```php
 <!DOCTYPE html>
@@ -127,17 +130,17 @@ Now we will add the "scripts"
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 ```
 
-We specify the error parameters:
+Now add the `script` tags for `socket.io` connection and some user functions:
 
 ```php
 <script>
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('yourip:8080')                  // EXAMPLE: 123.123.123.0:8080
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to the server!')
 
             user_functions();
         });
@@ -151,27 +154,26 @@ We specify the error parameters:
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
 
-                socket.emit('connected', $tardeurl);
+                socket.emit('connected', $tradeurl);
 
-            } else toastr.error('TradeUrl No Valid!')
+            } else toastr.error('Tradeurl specified is invalid!')
 
 
         });
 ```
         
-## 9. We return to PUTTY to install socket and expresstrade
+## 9. Installing module dependencies for `NodeJs`
 
-We put these commands in putty:
+Write the following commands on PuTTy to install the module dependencies:
 
-* `cd /`
-* `cd contest` *to go to the "contest" folder*
-* `npm install expresstrade socket.io@1.7.3 fs` *to install the necessary commands*
+* `cd /root/contest` - *you will get to the folder where `server.js` is*
+* `npm install expresstrade socket.io@1.7.3 fs` - *you will install the npm modules*
 
-And when this finishes we put: `nodejs server.js` to start the server.
+After the npm modules were installed, start the `server.js` with the command `node server.js`.
 
-## 10. Now we will make a modification to the file **server.js** found in / contest
+## 10. Editing the `server.js`.
 
-We change the global variables:
+From old `server.js` to this `server.js`:
 
 ```javascript
 var users = {};
@@ -179,28 +181,19 @@ var users = {};
 
 
 io.on('connection', function(socket) {
-    socket.on('connected', function(tradeutl) {
+    socket.on('connected', function(tradeurl) {
 
 
         users[tradeurl.split('/')[4]] = tradeurl;
 
-        console.log(users);
-
-        socket.emit('message', "You are now registered on the Website!")
-
-
+        socket.emit('message', "You are now registered to the website!")
     });
 });
 ```
 
-## 11. Now we return to the file **index.php** and continue writing below:
+## 11. Adding new scripts to `index.php` file
 
-```php
-socket.on('message', function(msg) {
-            toastr.info(msg);
-```
-
-So now the whole file would look like this:
+The *index.php* file will look like this:
 
 ```php
 <!DOCTYPE html>
