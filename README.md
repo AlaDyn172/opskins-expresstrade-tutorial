@@ -139,11 +139,8 @@ Now add the `script` tags for `socket.io` connection and some user functions:
             user_functions();
         });
     }
-
-
+    
     function user_function() {
-
-
         $('#registerBtn').click(function() {
             var $tradeurl = $('#your_tradeurl').val();
 
@@ -152,7 +149,6 @@ Now add the `script` tags for `socket.io` connection and some user functions:
                 socket.emit('user inventory', $tradeurl);
             } else toastr.error('Wrong format of trade url!');
         });
-
     }
 ```
         
@@ -171,8 +167,6 @@ From old `server.js` to this `server.js`:
 
 ```javascript
 var users = {};
-
-
 
 io.on('connection', function(socket) {
     socket.on('connected', function(tradeurl) {
@@ -223,10 +217,7 @@ The *index.php* file will look like this:
         });
     }
 
-
     function user_function() {
-
-
         $('#registerBtn').click(function() {
             var $tradeurl = $('#your_tradeurl').val();
 
@@ -235,7 +226,6 @@ The *index.php* file will look like this:
                 socket.emit('user inventory', $tradeurl);
             } else toastr.error('Wrong format of trade url!');
         });
-
     }
 ```
 Now you can test the tradeurl thing by stopping and starting again your `server.js` with the following commands: `CTRL+C` *to stop your current server* and `node server.js` *to start again the server.js file*.
@@ -246,8 +236,6 @@ The server.js will look like this:
 
 ```javascript
 var users = {};
-
-
 
 io.on('connection', function(socket) {
     socket.on('connected', function(tradeurl) {
@@ -311,8 +299,6 @@ This will be the `server.js`:
 ```javascript
 var users = {};
 
-
-
 io.on('connection', function(socket) {
     socket.on('logged', function() {
         botInventory(function(items) {
@@ -320,16 +306,12 @@ io.on('connection', function(socket) {
         });
     });
 
-
     socket.on('register', function(tradeurl) {
         if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
         users[tradeurl.split('/')[4]] = tradeurl;
         socket.emit('message', 'You have registered your UID to our website!');
     });
 });
-
-
-
 
 function botInventory(callback) {
     ET.IUser.GetInventory({
@@ -390,9 +372,7 @@ And the `scripts` section will look like this:
         });
     }
 
-
     function user_functions() {
-
         $('#registerBtn').click(function() {
             var $tradeurl = $('#your_tradeurl').val();
 
@@ -402,12 +382,9 @@ And the `scripts` section will look like this:
             } else toastr.error('Wrong format of trade url!');
         });
 
-
         socket.on('message', function(msg) {
             toastr.info(msg);
         });
-
-
         socket.on('bot inventory', function(items) {
             for(var i in items) {
                 $('.bot_inventory').append(`
@@ -419,8 +396,6 @@ And the `scripts` section will look like this:
                 ')
             }
         });
-    
-
     }
 ```
 Now if you restart the `server.js` file you can see the bot inventory!
@@ -504,9 +479,7 @@ Add style on **index.php** file:
     <div class='bot invemtory'>
             
     </div>
-
-
-
+    
     <button type="button" id="withdrawItems">Withdraw</button>
     <div class=items></span>
 </body>
@@ -517,11 +490,7 @@ The `scripts` section will look like this:
 
 ```php
 <script>
-
-
     var withdraw_items = [];
-
-
     var socket = null;
 
     if(socket == null) {
@@ -535,10 +504,7 @@ The `scripts` section will look like this:
             user_functions();
         });
     }
-
-
     function user_functions() {
-
         $('body').on('click', '.bot_inventory .items', function() {
             var &id = $(this).attr('data-id';)
 
@@ -584,7 +550,6 @@ The `scripts` section will look like this:
             toastr.info(msg);
         });
 
-
         socket.on('bot inventory', function(items) {
             for(var i in items) {
                 $('.bot_inventory').append(`
@@ -596,8 +561,6 @@ The `scripts` section will look like this:
                 ')
             }
         });
-    
-
     }
 ```
 
@@ -620,11 +583,8 @@ var ET = new ExpressTrade({
 
 app.listen(8080);
 
-
 //global
 var users = {};
-
-
 
 io.on('connection', function(socket) {
     socket.on('logged', function() {
@@ -632,7 +592,6 @@ io.on('connection', function(socket) {
             socket.emit('bot inventory', items)
         });
     });
-
 
     socket.on('register', function(tradeurl) {
         if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
@@ -663,9 +622,6 @@ io.on('connection', function(socket) {
         });
     });
 });
-
-
-
 
 function botInventory(callback) {
     ET.IUser.GetInventory({
@@ -725,9 +681,6 @@ function botInventory(callback) {
     <div class='bot invemtory'>
             
     </div>
-
-
-
     <button type="button" id="withdrawItems">Withdraw</button>
     <div class=items></span>
 
@@ -743,14 +696,8 @@ function botInventory(callback) {
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity: "sha384-oqVuAfHRKap7fdgcCY5iykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC" crossorigin= "@guiolmar"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-
 <script>
-
-
     var withdraw_items = [];
-
-
     var socket = null;
 
     if(socket == null) {
@@ -765,9 +712,7 @@ function botInventory(callback) {
         });
     }
 
-
     function user_functions() {
-
         $('body').on('click', '.bot_inventory .items', function() {
             var &id = $(this).attr('data-id';)
 
@@ -813,7 +758,6 @@ function botInventory(callback) {
         
         });
 
-
         socket.on('message', function(msg) {
             toastr.info(msg);
         });
@@ -824,7 +768,6 @@ function botInventory(callback) {
                 <a href="https://trade.opskins.com/trade-offers/` + tid + `" target=" blank">click here to accept</a>
             `);
         });
-
 
         socket.on('bot inventory', function(items) {
             for(var i in items) {
@@ -837,8 +780,6 @@ function botInventory(callback) {
                 ')
             }
         });
-    
-
     }
 ```
 
@@ -904,14 +845,9 @@ The new code with new `index.php` file with deposit functions and button:
     <div class="items2"></div>
 
     <br><br>
-
-
     <div class="bot_inventory">
 
     </div>
-
-
-
     <button type="button" id="withdrawItems">Withdraw</button>
     <div class="items"></div>
 
@@ -930,12 +866,8 @@ The new code with new `index.php` file with deposit functions and button:
 
 
 <script>
-
-
     var withdraw_items = [];
     var deposit_items = [];
-
-
     var socket = null;
 
     if(socket == null) {
@@ -949,7 +881,6 @@ The new code with new `index.php` file with deposit functions and button:
             user_functions();
         });
     }
-
 
     function user_functions() {
 
@@ -1055,7 +986,6 @@ The new code with new `index.php` file with deposit functions and button:
             `);
         });
 
-
         socket.on('bot inventory', function(items) {
             for(var i in items) {
                 $('.bot_inventory').append(`
@@ -1067,12 +997,7 @@ The new code with new `index.php` file with deposit functions and button:
                 `)
             }
         });
-
-
     }
-
-
-
 </script> 
 ```
 
@@ -1093,11 +1018,8 @@ var ET = new ExpressTrade({
 
 app.listen(8080);
 
-
 // global variables
 var users = {};
-
-
 
 io.on('connection', function(socket) {
     socket.on('logged', function() {
@@ -1165,9 +1087,6 @@ io.on('connection', function(socket) {
         });
     });
 });
-
-
-
 
 function botInventory(callback) {
     ET.IUser.GetInventory({
