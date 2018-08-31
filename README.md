@@ -37,15 +37,17 @@ Connect to the server by:
 * `Pass` The password of VPS
 * `Port` 22
 
-In ` / root` folder create folder  `/ contest` and inside the folder, create a file called **server.js**
+In `/root` folder create folder  `/contest` and inside the folder, create a file called **server.js**
 
-## 4. Return to PUTTY
+## 4. Return to PuTTy
 
-We put this code to install nodejs: `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -`
+To install `nodejs` we will write this command in PuTTy: `curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -`
 
-When finished we enter this code: `sudo apt-get install -y nodejs`
+After the `nodejs` got all files, install by this command: `sudo apt-get install -y nodejs`
 
-## 5. We create the variables that start the server (later we will add more)
+## 5. Create the variables on `server.js` file
+
+Open `server.js` file and write following variables:
 
 ```javascript
 var app = require('https').createServer();
@@ -55,13 +57,15 @@ var fs = require('fs');
 app.listen (8080);
 ```
 
-## 6. We create the *global variables* and their dictates.
+## 6. Now we're creating the registering of tradeurl on our server
+
+Open `server.js` file and write following variables and functions:
 
 ```javascript
 var users = {};
 
 io.on('connection', function(socket) {
-    socket.on('connected', function(tradeutl) {
+    socket.on('connected', function(tradeurl) {
 
 
         users.push(tradeurl);
@@ -73,13 +77,11 @@ io.on('connection', function(socket) {
 });
 ```
 
-## 7. WWW Folder
+## 7. Creating the `index.php` file.
 
-We return to FileZilla and go to the folder: **/ var / www / html**
+Return to FileZilla, go to folder `/var/www/html` and inside the folder make a file called **index.php**
 
-Inside the folder we delete the file **index.html** and create a new file called **index.php**
-
-## 8. We opened that folder and created an HTML base
+## 8. Adding code to `index.php` file
 
 ```php
 <!DOCTYPE html>
