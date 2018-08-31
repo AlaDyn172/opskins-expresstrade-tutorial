@@ -69,13 +69,8 @@ var users = {};
 
 io.on('connection', function(socket) {
     socket.on('connected', function(tradeurl) {
-
-
         users.push(tradeurl);
-
-        socket.emit('message', "You are now registered on the Website!")
-
-
+        socket.emit('message', "You have registered your UID to our website!");
     });
 });
 ```
@@ -119,8 +114,8 @@ Add now the `script` tags:
 <body>
     <h1>Trade Website - Tutorial</h1>
     <div class="settings">
-        <imput type="text" id="your_tradeurl" placeholder="your trade url">
-        <button type="button">Register</button>
+        <input type="text" id="your_tradeurl" placeholder="your trade url">
+        <button type="button" id="registerBtn">Register</button>
     </div>
 </body>
 </html>
@@ -149,17 +144,17 @@ Now add the `script` tags for `socket.io` connection and some user functions:
 
     function user_function() {
 
+
         $('#registerBtn').click(function() {
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-                socket.emit('connected', $tradeurl);
-
-            } else toastr.error('Tradeurl specified is invalid!')
-
-
+                socket.emit('register', $tradeurl);
+                socket.emit('user inventory', $tradeurl);
+            } else toastr.error('Wrong format of trade url!');
         });
+
+    }
 ```
         
 ## 9. Installing module dependencies for `NodeJs`
@@ -182,10 +177,7 @@ var users = {};
 
 io.on('connection', function(socket) {
     socket.on('connected', function(tradeurl) {
-
-
         users[tradeurl.split('/')[4]] = tradeurl;
-
         socket.emit('message', "You are now registered to the website!")
     });
 });
@@ -235,22 +227,17 @@ The *index.php* file will look like this:
 
     function user_function() {
 
+
         $('#registerBtn').click(function() {
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-
-                socket.emit('connected', $tradeurl);
-
-
-            } else toastr.error('TradeUrl No Valid!')
-
+                socket.emit('register', $tradeurl);
+                socket.emit('user inventory', $tradeurl);
+            } else toastr.error('Wrong format of trade url!');
         });
 
-
-        socket.on('message', function(msg) {
-            toastr.info(msg);
+    }
 ```
 Now you can test the tradeurl thing by stopping and starting again your `server.js` with the following commands: `CTRL+C` *to stop your current server* and `node server.js` *to start again the server.js file*.
 
@@ -265,14 +252,9 @@ var users = {};
 
 io.on('connection', function(socket) {
     socket.on('connected', function(tradeurl) {
-
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are already registered!');
-
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
         users[tradeurl.split('/')[4]] = tradeurl;
-
-        socket.emit('message', "You are now registered on the Website!")
-
-
+        socket.emit('message', 'You have registered your UID to our website!');
     });
 });
 ```
@@ -341,13 +323,9 @@ io.on('connection', function(socket) {
 
 
     socket.on('register', function(tradeurl) {
-
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are already registered!');
-
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
         users[tradeurl.split('/')[4]] = tradeurl;
-
-        socket.emit('message', "You are now registered on the Website!")
-        
+        socket.emit('message', 'You have registered your UID to our website!');
     });
 });
 
@@ -420,13 +398,9 @@ And the `scripts` section will look like this:
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-
                 socket.emit('register', $tradeurl);
-
-
-            } else toastr.error('TradeUrl No Valid!')
-
+                socket.emit('user inventory', $tradeurl);
+            } else toastr.error('Wrong format of trade url!');
         });
 
 
@@ -601,13 +575,9 @@ The `scripts` section will look like this:
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-
-                socket.emit('register', $tardeurl);
-
-
-            } else toastr.error('TradeUrl No Valid!')
-
+                socket.emit('register', $tradeurl);
+                socket.emit('user inventory', $tradeurl);
+            } else toastr.error('Wrong format of trade url!');
         });
 
 
@@ -665,24 +635,20 @@ io.on('connection', function(socket) {
     });
 
 
-    socket.on('register', function(tradeutl) {
-
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are alredy registered!');
-
+    socket.on('register', function(tradeurl) {
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
         users[tradeurl.split('/')[4]] = tradeurl;
-
-        socket.emit('message', "You are now registered on the Website!")
-
+        socket.emit('message', 'You have registered your UID to our website!');
     });
 
     socket.on('withdraw items', function(items, tradeurl) {
-        if(tradeurl == '') return  socket.emit('message', 'You need to input your tradelink!');
-        if(items.length == 0) return socket.emit('message', 'You need to select some items!')
+        if(tradeurl == '') return socket.emit('message', 'You need to input your tradelink!');
+        if(items.length == 0) return socket.emit('message', 'You need to select some items to withdraw!');
 
         ET.ITrade.SendOffer({
             trade_url: tradeurl,
-            items: items.join('.'),
-            message: 'Trade Offer!'
+            items: items.join(','),
+            message: 'This is a trade offer from the ExpressTrade website contest by Echo (withdraw).'
         }, (err, body) => {
             if(err) {
                 socket.emit('message', err);
@@ -692,10 +658,10 @@ io.on('connection', function(socket) {
             if(!body.hasOwnProperty('response') && body.hasOwnProperty('message')) return socket.emit('message', body.message);
 
             if(body.response.offer.state == 2) {
-                socket.emit('trade offer', body.response.offer.id);
+                socket.emit('trade offer', body.response.offer.id, 'withdraw');
             }
 
-        });    
+        });
     });
 });
 
@@ -838,13 +804,9 @@ function botInventory(callback) {
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-
-                socket.emit('register', $tardeurl);
-
-
-            } else toastr.error('TradeUrl No Valid!')
-
+                socket.emit('register', $tradeurl);
+                socket.emit('user inventory', $tradeurl);
+            } else toastr.error('Wrong format of trade url!');
         });
         
         $('#withdrawItems').click(function() {
@@ -887,81 +849,6 @@ Now restart the `server.js` and you will see you can withdraw items from bot inv
 
 Edit the `index.php` file:
 
-```php
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    <style>
-        .bot_inventory {
-            margin-top: 100px;
-            display: flex;
-        }
-
-        .user_inventory {
-            margin-top: 100px;
-            display: flex;
-        }
-
-        .item {
-            cursor: pointer;
-            width: 100px;
-            background-color: black;
-            color: white;
-            margin-right: 10px;
-        }
-
-        .item img {
-            width: 100px;
-        } 
-
-        .items {
-            margin-top: 100px;
-            display: flex;
-        }
-    </style>
-
-</head>
-<body>
-    <h1>Trade Website - Tutorial</h1>
-    <div class="settings">
-        <imput type="text" id="your_tradeurl" placeholder="your trade url">
-        <button type="button" id="registerBtn">Register</button>
-    </div>
-
-<br>
-    <div class="user_inventory">
-
-
-    </div></br>
-    <button type="button" id="withdrawItems">Withdraw</button>
-    <div class=items></span>
-
-
-    <div class='bot invemtory'>
-            
-    </div>
-
-
-
-    <button type="button" id="withdrawItems">Withdraw</button>
-    <div class=items></span>
-
-    <br></br>
-    
-        <h4>Your history trade</h4>
-    <div class='trade'>
-
-    </div>
-</body>
-</html>
-```
-
 The new code with new `index.php` file with deposit functions and button:
 ```php
 <!DOCTYPE html>
@@ -970,7 +857,7 @@ The new code with new `index.php` file with deposit functions and button:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>ExpressTrade Contest</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
@@ -994,7 +881,7 @@ The new code with new `index.php` file with deposit functions and button:
 
         .item img {
             width: 100px;
-        } 
+        }
 
         .items {
             margin-top: 100px;
@@ -1004,40 +891,41 @@ The new code with new `index.php` file with deposit functions and button:
 
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>Contest ExpressTrade - tutorial</h1>
     <div class="settings">
-        <imput type="text" id="your_tradeurl" placeholder="your trade url">
+        <input type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
     </div>
-
 <br>
+
     <div class="user_inventory">
 
-
-    </div></br>
+    </div><br>
     <button type="button" id="depositItems">Deposit</button>
-    <div class=items2></span>
+    <div class="items2"></div>
+
+    <br><br>
 
 
-    <div class='bot invemtory'>
-            
+    <div class="bot_inventory">
+
     </div>
 
 
 
     <button type="button" id="withdrawItems">Withdraw</button>
-    <div class=items></span>
+    <div class="items"></div>
 
-    <br></br>
-    
-        <h4>Your history trade</h4>
-    <div class='trade'>
+    <br><br>
+
+        <h4>Your trades here</h4>
+    <div class="trade">
 
     </div>
 </body>
 </html>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity: "sha384-oqVuAfHRKap7fdgcCY5iykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC" crossorigin= "@guiolmar"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -1052,10 +940,10 @@ The new code with new `index.php` file with deposit functions and button:
     var socket = null;
 
     if(socket == null) {
-        socket = io('yourip(123.456.789.01):8080')
+        socket = io('207.154.220.43:8080');
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to server!');
 
             socket.emit('logged');
 
@@ -1066,13 +954,13 @@ The new code with new `index.php` file with deposit functions and button:
 
     function user_functions() {
 
-        $('body').on('click', '.bot_inventory .items', function() {
-            var &id = $(this).attr('data-id';)
+        $('body').on('click', '.bot_inventory .item', function() {
+            var $id = $(this).attr('data-id');
 
             var $item = $(this).html();
             $(this).remove();
 
-            withdraw.items.push($id);
+            withdraw_items.push($id);
 
             $('.items').append(`
                 <div class="item" data-id="` + $id + `">
@@ -1081,14 +969,14 @@ The new code with new `index.php` file with deposit functions and button:
             `);
         });
 
-        $('body').on('click', '.items .items', function() {
-            var &id = $(this).attr('data-id';)
+        $('body').on('click', '.items .item', function() {
+            var $id = $(this).attr('data-id');
 
             var $item = $(this).html();
 
             $(this).remove();
 
-            withdraw_items.splice(withdraw_items.indexDF($id), 1);
+            withdraw_items.splice(withdraw_items.indexOf($id), 1);
 
             $('.bot_inventory').append(`
                 <div class="item" data-id="` + $id + `">
@@ -1101,36 +989,30 @@ The new code with new `index.php` file with deposit functions and button:
             var $tradeurl = $('#your_tradeurl').val();
 
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
-
-
-                socket.emit('register', $tardeurl);
-
+                socket.emit('register', $tradeurl);
                 socket.emit('user inventory', $tradeurl);
-
-
-            } else toastr.error('TradeUrl No Valid!')
-
+            } else toastr.error('Wrong format of trade url!');
         });
 
         socket.on('user inventory', function(items) {
             for(var i in items) {
                 $('.user_inventory').append(`
                     <div class="item" data-id="` + items[i].id + `">
-                        <ing src="` + items[i].image['100px'] + `"> 
+                        <img src="` + items[i].image["600px"] + `">
                         ` + items[i].name + `<br>
-                        $` + parseFloat(items[i].suggested_price_floor/100).toFixed(2) + '
-                    </div>            
-                ')
+                        $` + parseFloat(items[i].suggested_price_floor/100).toFixed(2) + `
+                    </div>
+                `)
             }
         });
 
-        $('body').on('click', '.user_inventory .items', function() {
-            var &id = $(this).attr('data-id';)
+        $('body').on('click', '.user_inventory .item', function() {
+            var $id = $(this).attr('data-id');
 
             var $item = $(this).html();
             $(this).remove();
 
-            deposit.items.push($id);
+            deposit_items.push($id);
 
             $('.items2').append(`
                 <div class="item" data-id="` + $id + `">
@@ -1139,14 +1021,14 @@ The new code with new `index.php` file with deposit functions and button:
             `);
         });
 
-        $('body').on('click', '.items2 .items', function() {
-            var &id = $(this).attr('data-id';)
+        $('body').on('click', '.items2 .item', function() {
+            var $id = $(this).attr('data-id');
 
             var $item = $(this).html();
 
             $(this).remove();
 
-            withdraw_items.splice(withdraw_items.indexDF($id), 1);
+            deposit_items.splice(deposit_items.indexOf($id), 1);
 
             $('.user_inventory').append(`
                 <div class="item" data-id="` + $id + `">
@@ -1155,25 +1037,22 @@ The new code with new `index.php` file with deposit functions and button:
             `);
         });
 
-
         $('#withdrawItems').click(function() {
-            socket.emit('withdraw items', withdraw, $('#your_tradeurl').val());
-        
+            socket.emit('withdraw items', withdraw_items, $('#your_tradeurl').val());
         });
 
         $('#depositItems').click(function() {
             socket.emit('deposit items', deposit_items, $('#your_tradeurl').val());
-        
         });
 
         socket.on('message', function(msg) {
             toastr.info(msg);
         });
 
-        socket.on('tarde offer', function(tid, type) {
+        socket.on('trade offer', function(tid, type) {
             $('.trade').append(`
-                <span class color: purple; font-weight: bold; "Trade #` + tid + `for` + type + `has been created!</span>
-                <a href="https://trade.opskins.com/trade-offers/` + tid + `" target=" blank">click here to accept</a><br>
+                <span class="color: orange; font-weight: bold;">Trade #` +  tid + ` for ` + type + ` has been created!</span>
+                <a href="https://trade.opskins.com/trade-offers/` + tid + `" target="_blank">click here to accept</a><br>
             `);
         });
 
@@ -1182,22 +1061,26 @@ The new code with new `index.php` file with deposit functions and button:
             for(var i in items) {
                 $('.bot_inventory').append(`
                     <div class="item" data-id="` + items[i].id + `">
-                        <ing src="` + items[i].image['100px'] + `"> 
+                        <img src="` + items[i].image["600px"] + `">
                         ` + items[i].name + `<br>
-                        $` + parseFloat(items[i].suggested_price_floor/100).toFixed(2) + '
-                    </div>            
-                ')
+                        $` + parseFloat(items[i].suggested_price_floor/100).toFixed(2) + `
+                    </div>
+                `)
             }
         });
-    
 
-    }      
+
+    }
+
+
+
+</script> 
 ```
 
 And the `server.js` with the deposit functions
 
 ```javascript
-var app = require('https').createServer();
+var app = require('http').createServer();
 var io = require('socket.io')(app);
 var fs = require('fs');
 
@@ -1207,12 +1090,12 @@ var ET = new ExpressTrade({
     apikey: 'Your OPSkins API Key',
     twofactorsecret: 'Your OPSkins 2FA Secret',
     pollInterval: 5000
-  })
+  });
 
 app.listen(8080);
 
 
-//global
+// global variables
 var users = {};
 
 
@@ -1220,29 +1103,25 @@ var users = {};
 io.on('connection', function(socket) {
     socket.on('logged', function() {
         botInventory(function(items) {
-            socket.emit('bot inventory', items)
+            socket.emit('bot inventory', items);
         });
     });
 
 
-    socket.on('register', function(tradeutl) {
-
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are alredy registered!');
-
+    socket.on('register', function(tradeurl) {
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You have already registered your UID to our website!');
         users[tradeurl.split('/')[4]] = tradeurl;
-
-        socket.emit('message', "You are now registered on the Website!")
-
+        socket.emit('message', 'You have registered your UID to our website!');
     });
 
     socket.on('withdraw items', function(items, tradeurl) {
-        if(tradeurl == '') return  socket.emit('message', 'You need to input your tradelink!');
-        if(items.length == 0) return socket.emit('message', 'You need to select some items!')
+        if(tradeurl == '') return socket.emit('message', 'You need to input your tradelink!');
+        if(items.length == 0) return socket.emit('message', 'You need to select some items to withdraw!');
 
         ET.ITrade.SendOffer({
             trade_url: tradeurl,
-            items: items.join('.'),
-            message: 'Trade Offer!'
+            items: items.join(','),
+            message: 'This is a trade offer from the ExpressTrade website contest by Echo (withdraw).'
         }, (err, body) => {
             if(err) {
                 socket.emit('message', err);
@@ -1255,17 +1134,17 @@ io.on('connection', function(socket) {
                 socket.emit('trade offer', body.response.offer.id, 'withdraw');
             }
 
-        });    
+        });
     });
 
-    socket.on('deposit items', function(items) {
-        if(tradeurl == '') return  socket.emit('message', 'You need to input your tradelink!');
-        if(items.length == 0) return socket.emit('message', 'You need to select some items to deposit!')
+    socket.on('deposit items', function(items, tradeurl) {
+        if(tradeurl == '') return socket.emit('message', 'You need to input your tradelink!');
+        if(items.length == 0) return socket.emit('message', 'You need to select some items to deposit!');
 
         ET.ITrade.SendOffer({
             trade_url: tradeurl,
-            items: items.join('.'),
-            message: 'Trade Offer!'
+            items: items.join(','),
+            message: 'This is a trade offer from the ExpressTrade website contest by Echo (deposit).'
         }, (err, body) => {
             if(err) {
                 socket.emit('message', err);
@@ -1278,13 +1157,12 @@ io.on('connection', function(socket) {
                 socket.emit('trade offer', body.response.offer.id, 'deposit');
             }
 
-        });    
+        });
     });
 
     socket.on('user inventory', function(tradeurl) {
         userInventory(tradeurl.split('/')[4], function(items) {
-            socket.emit('user invetory', items);
-        
+            socket.emit('user inventory', items);
         });
     });
 });
@@ -1299,12 +1177,12 @@ function botInventory(callback) {
         (err, body) => {
         if(err) return console.log(err);
 
-        callback(body.responde.items);
+        callback(body.response.items);
     });
 }
 
-function userInvemtory(uis, callback) {
-    ET.ITrade.GetUserInvemtory({
+function userInventory(uid, callback) {
+    ET.ITrade.GetUserInventory({
         app_id: 1,
         uid: uid
     }, (err, body) => {
