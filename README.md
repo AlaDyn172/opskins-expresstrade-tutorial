@@ -13,33 +13,31 @@ The password will be sent through your e-mail/gmail registered to your DigitalOc
 
 ## 2. We open the server in PUTTY
 
-Download PUTTY (https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
+Download PuTTy from the link: (https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
 
-We open it and start the server, we put our password and create a new one.
+Open PuTTy server and write following commands:
 
 ```shell
 apt-get update
 ```
-Next command:
-
 
 ```shell
 apt-get install apache2 mysql-server phpmyadmin php5
 ```
-You create a password for the DB and continue with the simple inatalación.
+Then you will be input to write your old password (from e-mail/gmail) and then asked to write your new password.
 
 ## 3. Open FileZilla (File Server Browser)
 
-Open FileZilla. Download: https://filezilla-project.org/
+Download FileZilla: https://filezilla-project.org/ and open it.
 
-Join the server:
+Connect to the server by:
 
 * `Host` IP address of server
 * `User` root
 * `Pass` The password of VPS
 * `Port` 22
 
-In the root folder we create another folder called `/ contest` and inside that folder a file that we will call **server.js**
+In ` / root` folder create folder  `/ contest` and inside the folder, create a file called **server.js**
 
 ## 4. Return to PUTTY
 
