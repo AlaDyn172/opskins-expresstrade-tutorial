@@ -452,9 +452,9 @@ And the `scripts` section will look like this:
 ```
 Now if you restart the `server.js` file you can see the bot inventory!
 
-## 15. Let's create the Withdraw button
+## 15. Now we will create the withdraw button
 
-In the file **index.php** we have to edit the base html:
+In `index.php` we need to edit:
 
 ```php
 <!DOCTYPE html>
@@ -476,20 +476,16 @@ In the file **index.php** we have to edit the base html:
             
     </div>
 
-
-
     <button type="button" id="withdrawItems">Withdraw</button>
     <span class=items></span>
 </body>
 </html>
 ```
 
-Now if we save and execute in PUTTY `node server.js` you will see the changes!
 
+## 16. Now add styles to bot inventory and items
 
-## 16. We add style to the main parameters
-
-We add the style to the file **index.php**
+Add style on **index.php** file:
 
 ```php
 <!DOCTYPE html>
@@ -543,7 +539,8 @@ We add the style to the file **index.php**
 </body>
 </html>
 ```
-And now the scripts:
+
+The `scripts` section will look like this:
 
 ```php
 <script>
@@ -635,12 +632,10 @@ And now the scripts:
     }
 ```
 
-And now if you put in PUTTY `node server.js` you will see that when you click on any object it moves down ... the scripts:
+## 17. Now let's create the withdraw function
 
-## 17. Now let's create the "Withdraw" function and the possible errors of the withdraw
-
-This is the code with the already done Withdraw:
-**Server.js**
+Code with the withdraw function done:
+**server.js**
 ```javascript
 var app = require('https').createServer();
 var io = require('socket.io')(app);
@@ -719,7 +714,7 @@ function botInventory(callback) {
 }
 ```
 
-**Index.php**
+**index.php**
 
 ```php
 <!DOCTYPE html>
@@ -886,11 +881,11 @@ function botInventory(callback) {
     }
 ```
 
-Pon en Putty `node server.js` y el withdraw ya funciona!
+Now restart the `server.js` and you will see you can withdraw items from bot inventory!
 
-## 18. We are going to create the "Deposit"
+## 18. Now let's create the deposit button and functions
 
-Edit the html base code and add these changes:
+Edit the `index.php` file:
 
 ```php
 <!DOCTYPE html>
@@ -967,7 +962,7 @@ Edit the html base code and add these changes:
 </html>
 ```
 
-The new code of **index.php** with the deposit:
+The new code with new `index.php` file with deposit functions and button:
 ```php
 <!DOCTYPE html>
 <html lang="en">
@@ -1199,7 +1194,7 @@ The new code of **index.php** with the deposit:
     }      
 ```
 
-And finally the **server.js** code with the deposit:
+And the `server.js` with the deposit functions
 
 ```javascript
 var app = require('https').createServer();
@@ -1320,8 +1315,7 @@ function userInvemtory(uis, callback) {
     });
 }
 ```
-
-We enter PUTTY and we put `killall node` and finally`node server.js`
+If you get ``ERR PORT IN USE``, write the following commands: `1. killall node`, `2. node server.js`.
 
 ## Tutorial made by Echo
 ## Twitter @AlaDyn172
