@@ -3,16 +3,11 @@
 
 # WAX ExpressTrade Tutorial
 
-Forgive me if any expression is badly expressed, I do not usually speak English ... It has been hard for me to do it, I hope you value it ...
-Thank you
-
 ## 1. Create the server
 
-We create the server in DigitalOcean.com (https://m.do.co/c/563ae669c336)
-
-We create a server Ubuntu 14.04.5 x64.
-
-The server password will be sent to the email associated with the DigitalOcean account.
+Create a new VPS droplet in DigitalOcean (you can use my affiliate link to receive $10 FREE: https://m.do.co/c/1fb7d9628800)
+Create a VPS with OS: Ubuntu 14.04.5 x64.
+The password will be sent through your e-mail/gmail registered to your DigitalOcean.
 
 ## 2. We open the server in PUTTY
 
