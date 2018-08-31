@@ -241,7 +241,7 @@ The *index.php* file will look like this:
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
 
 
-                socket.emit('connected', $tardeurl);
+                socket.emit('connected', $tradeurl);
 
 
             } else toastr.error('TradeUrl No Valid!')
@@ -252,16 +252,11 @@ The *index.php* file will look like this:
         socket.on('message', function(msg) {
             toastr.info(msg);
 ```
-Put on PUTTY `node site.js`
-And now you can try to put your tradeurl!
+Now you can test the tradeurl thing by stopping and starting again your `server.js` with the following commands: `CTRL+C` *to stop your current server* and `node server.js` *to start again the server.js file*.
 
-## 12. Now we update the global variables again.
+## 12. Update the global variables from `server.js` file
 
-We update them to add the message of when a person is already registered:
-
-Eliminate the line of code: `console.log(users);`
-
-And we would add a new line of code first and the global variables would look like this:
+The server.js will look like this:
 
 ```javascript
 var users = {};
@@ -269,9 +264,9 @@ var users = {};
 
 
 io.on('connection', function(socket) {
-    socket.on('connected', function(tradeutl) {
+    socket.on('connected', function(tradeurl) {
 
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are alredy registered!');
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are already registered!');
 
         users[tradeurl.split('/')[4]] = tradeurl;
 
@@ -282,12 +277,11 @@ io.on('connection', function(socket) {
 });
 ```
 
-## 13. Now let's work with the OPSkins API: https://github.com/OPSkins/trade-opskins-api/tree/master/IUser
+## 13. Time to work with endpoints from https://github.com/OPSkins/trade-opskins-api
 
-We will work based on the OPSkins API but with the help of this: https://github.com/TheTimmaeh/node-expresstrade
+To work with OPSkins endpoints we will use this module, so it will be easy to use https://github.com/TheTimmaeh/node-expresstrade
 
-Now we are going to add the GitHub code to our project ...
-We went to: **server.js** and added a new variable to the main variables. It would look like this:
+The `server.js` will look like this:
 
 ```javascript
 var app = require('https').createServer();
@@ -305,11 +299,11 @@ var ET = new ExpressTrade({
 app.listen(8080);
 ```
 
-But now you have to change your OPSkins API, you can find it here: https://opskins.com> Account Settings> Advanced Options> API Key.
+*Your OPSkins API Key* can be found on `https://opskins.com > Account Settings > Advanced Options > API Key`.
 
-And the 2FA Code you find when you start your authenticator. If you already have it configured, you must deconfigure it, and put it back, and the code that will give you, example: "HGPS SHFO HS6A G2U7"
+*Your OPSkins 2FA Secret* can be found at enabling your 2FA on `https://opskins.com` or you can simply re-enable it from `https://opskins.com > Account Settings > Account Security > Disable Two-Factor Authentication`, then when you re-enable the 2FA, below the *QR image scanner* you will find a secret code like this `"HGPS SHFO HS6A G2U7"`.
 
-At the end and with everything configured with your parameters, it would be something like this:
+After everything is done, it will look like this:
 
 ```javascript
 var app = require('https').createServer();
@@ -319,21 +313,19 @@ var fs = require('fs');
 var ExpressTrade = require('expresstrade');
 
 var ET = new ExpressTrade({
-    apikey: 'jasd67ahjdgsd6asd565d6f5dfd5f6df(example)',
-    twofactorsecret: 'HGPSSHFOHS6AG2U7(example)',
+    apikey: 'jasd67ahjdgsd6asd565d6f5dfd5f6df',         // EXAMPLE of apikey
+    twofactorsecret: 'HGPSSHFOHS6AG2U7',                // EXAMPLE of twofactorsecret
     pollInterval: 5000
   })
 
 app.listen(8080);
 ```
 
-Well, that data will be what the page will use as a bot.
+The variable `ET` contains confidential data, do not give to others, otherwise they can steal your items from bot.
 
-## 14. Now let's create the functions of the bot, first function.
+## 14. Let's create the bot functions
 
-Let's create the bot_inventory section:
-
-We are going to edit the file of **server.js** at the end of the whole we are going to add this:
+This will be the `server.js`:
 
 ```javascript
 var users = {};
@@ -348,9 +340,9 @@ io.on('connection', function(socket) {
     });
 
 
-    socket.on('register', function(tradeutl) {
+    socket.on('register', function(tradeurl) {
 
-        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are alredy registered!');
+        if(users.hasOwnProperty(tradeurl.split('/')[4])) return socket.emit('message', 'You are already registered!');
 
         users[tradeurl.split('/')[4]] = tradeurl;
 
@@ -374,9 +366,7 @@ function botInventory(callback) {
 }
 ```
 
-Now we return to the file **index.php** to create the function of the "bot iventory" and we will also edit the base of the html code ...
-
-The main html code would look like this:
+Now return to `index.php` and replace with this:
 
 ```php
 <!DOCTYPE html>
@@ -400,7 +390,7 @@ The main html code would look like this:
 </body>
 </html>
 ```
-And the scripts would look like this:
+And the `scripts` section will look like this:
 
 ```php
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity: "sha384-oqVuAfHRKap7fdgcCY5iykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC" crossorigin= "@guiolmar"></script>
@@ -432,7 +422,7 @@ And the scripts would look like this:
             if($tradeurl.includes('https://') && $tradeurl.includes('trade.opskins.com')) {
 
 
-                socket.emit('register', $tardeurl);
+                socket.emit('register', $tradeurl);
 
 
             } else toastr.error('TradeUrl No Valid!')
@@ -460,9 +450,7 @@ And the scripts would look like this:
 
     }
 ```
-Put in PUTTY `node server.js`
-
-And now if you go to the web and put your tradeurl you will see the bot items!
+Now if you restart the `server.js` file you can see the bot inventory!
 
 ## 15. Let's create the Withdraw button
 
