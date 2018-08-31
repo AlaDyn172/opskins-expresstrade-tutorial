@@ -218,7 +218,7 @@ The *index.php* file will look like this:
         socket = io('yourip:8080')
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to server!')
 
             user_functions();
         });
@@ -383,7 +383,7 @@ And the `scripts` section will look like this:
         socket = io('yourip:8080')
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to server!')
 
             socket.emit('logged');
 
@@ -529,7 +529,7 @@ The `scripts` section will look like this:
         socket = io('yourip:8080')
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to server!')
 
             socket.emit('logged');
 
@@ -758,7 +758,7 @@ function botInventory(callback) {
         socket = io('yourip:8080')
 
         socket.on('connect', function() {
-            toastr.success('Nice connection!')
+            toastr.success('Connected to server!')
 
             socket.emit('logged');
 
