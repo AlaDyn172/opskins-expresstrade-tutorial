@@ -1,7 +1,6 @@
-# Video tutorial at
-# www.youtube.com/watch?v=1742zi5Pxh4
-
 # WAX ExpressTrade Tutorial
+# Youtube tutorial video (step-by-step) here: www.youtube.com/watch?v=1742zi5Pxh4
+# Or you can follow here on github (step-by-step) tutorial below:
 
 ## 1. Create the server
 
@@ -88,11 +87,11 @@ Return to FileZilla, go to folder `/var/www/html` and inside the folder make a f
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -109,10 +108,10 @@ Add now the `script` tags:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <input type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -194,11 +193,11 @@ The *index.php* file will look like this:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
-    <h1> Trade Website - Tutorial
+    <h1> WAX ExpressTrade - Echo Tutorial
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -353,11 +352,11 @@ Now return to `index.php` and replace with this:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -437,11 +436,11 @@ In `index.php` we need to edit:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -468,7 +467,7 @@ Add style on **index.php** file:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
@@ -497,7 +496,7 @@ Add style on **index.php** file:
 
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -689,7 +688,7 @@ function botInventory(callback) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
@@ -718,7 +717,7 @@ function botInventory(callback) {
 
 </head>
 <body>
-    <h1>Trade Website - Tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <imput type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
@@ -857,7 +856,7 @@ The new code with new `index.php` file with deposit functions and button:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ExpressTrade Contest</title>
+    <title>WAX ExpressTrade - Echo Tutorial</title>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <style>
@@ -891,7 +890,7 @@ The new code with new `index.php` file with deposit functions and button:
 
 </head>
 <body>
-    <h1>Contest ExpressTrade - tutorial</h1>
+    <h1>WAX ExpressTrade - Echo Tutorial</h1>
     <div class="settings">
         <input type="text" id="your_tradeurl" placeholder="your trade url">
         <button type="button" id="registerBtn">Register</button>
