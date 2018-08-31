@@ -6,7 +6,9 @@
 ## 1. Create the server
 
 Create a new VPS droplet in DigitalOcean (you can use my affiliate link to receive $10 FREE: https://m.do.co/c/1fb7d9628800)
+
 Create a VPS with OS: Ubuntu 14.04.5 x64.
+
 The password will be sent through your e-mail/gmail registered to your DigitalOcean.
 
 ## 2. We open the server in PUTTY
