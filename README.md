@@ -1,6 +1,7 @@
-# WAX ExpressTrade Tutorial
+# Video tutorial at
+# www.youtube.com/watch?v=1742zi5Pxh4
 
-## README(EN)
+# WAX ExpressTrade Tutorial
 
 Forgive me if any expression is badly expressed, I do not usually speak English ... It has been hard for me to do it, I hope you value it ...
 Thank you
@@ -1344,6 +1345,5 @@ function userInvemtory(uis, callback) {
 
 We enter PUTTY and we put `killall node` and finally`node server.js`
 
-The page should work with the deposit and the withdraw!
-
-Thanks @OPSkins
+## Tutorial made by Echo
+## Twitter @AlaDyn172
