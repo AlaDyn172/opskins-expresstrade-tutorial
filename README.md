@@ -12,7 +12,7 @@ The password will be sent through your e-mail/gmail registered to your DigitalOc
 
 ## 2. Open PuTTy
 
-Download PuTTy from the link: (https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
+Download PuTTy from the link: (https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 
 Open PuTTy server. Login with your IP Address and with the password from your e-mail/gmail.
 
@@ -30,7 +30,7 @@ apt-get install apache2 mysql-server phpmyadmin php5
 
 ## 3. Open FileZilla (File Server Browser)
 
-Download FileZilla: https://filezilla-project.org/ and open it.
+Download FileZilla Client: https://filezilla-project.org/download.php?type=client and open it.
 
 Connect to the server by:
 
