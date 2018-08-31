@@ -37,9 +37,9 @@ Open FileZilla. Download: https://filezilla-project.org/
 
 Join the server:
 
-* `Host` La iP del servidor 
+* `Host` IP address of server
 * `User` root
-* `Pass` La nueva contraseña que has cambiado en PUTTY
+* `Pass` The password of VPS
 * `Port` 22
 
 In the root folder we create another folder called `/ contest` and inside that folder a file that we will call **server.js**
